@@ -271,7 +271,7 @@ export default function Home() {
 
   const levels = useMemo(() => {
     const source = tab === "spells" ? SPELLS : FEATS;
-    return ["All", ...Array.from(new Set(source.map((item) => String(item.level)))).sort((a, b) => Number(a) - Number(b))];
+    return ["All", ...Array.from(new Set(source.map((item) => item.level))).sort((a, b) => a - b).map(String)];
   }, [tab]);
 
   const filteredSpells = useMemo(
@@ -339,6 +339,7 @@ export default function Home() {
 
     const popup = window.open("", "_blank", "noopener,noreferrer,width=1000,height=700");
     if (!popup) {
+      window.alert("Please allow popups to print cards.");
       return;
     }
 
