@@ -190,6 +190,11 @@ const FEATS: FeatCard[] = [
   },
 ];
 
+const ALL_CLASSES = [
+  "All",
+  ...Array.from(new Set([...SPELLS.flatMap((item) => item.classes), ...FEATS.flatMap((item) => item.classes)])).sort(),
+];
+
 function escapeHtml(value: string) {
   return value
     .replaceAll("&", "&amp;")
@@ -263,13 +268,6 @@ export default function Home() {
   const [selectedFeats, setSelectedFeats] = useState<Set<string>>(new Set());
   const [activeCard, setActiveCard] = useState<Card | null>(null);
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
-
-  const classes = useMemo(() => {
-    return [
-      "All",
-      ...Array.from(new Set([...SPELLS.flatMap((item) => item.classes), ...FEATS.flatMap((item) => item.classes)])).sort(),
-    ];
-  }, []);
 
   const levels = useMemo(() => {
     const source = tab === "spells" ? SPELLS : FEATS;
@@ -370,7 +368,7 @@ export default function Home() {
               value={selectedClass}
               onChange={(event) => setSelectedClass(event.target.value)}
             >
-              {classes.map((itemClass) => (
+              {ALL_CLASSES.map((itemClass) => (
                 <option key={itemClass} value={itemClass}>
                   {itemClass}
                 </option>
@@ -486,7 +484,7 @@ export default function Home() {
                 value={selectedClass}
                 onChange={(event) => setSelectedClass(event.target.value)}
               >
-                {classes.map((itemClass) => (
+                {ALL_CLASSES.map((itemClass) => (
                   <option key={itemClass} value={itemClass}>
                     {itemClass}
                   </option>
