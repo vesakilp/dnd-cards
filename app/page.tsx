@@ -523,8 +523,8 @@ export default function Home() {
             <p>Classes: {activeCard.classes.join(", ")}</p>
             <p>{activeCard.description}</p>
             <ul>
-              {activeCard.details.map((detail) => (
-                <li key={detail}>{detail}</li>
+              {activeCard.details.map((detail, index) => (
+                <li key={`${activeCard.id}-${index}`}>{detail}</li>
               ))}
             </ul>
             <button type="button" onClick={() => setActiveCard(null)}>
