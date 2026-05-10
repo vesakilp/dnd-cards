@@ -276,15 +276,25 @@ export default function Home() {
     return ["All", ...Array.from(new Set(source.map((item) => String(item.level)))).sort((a, b) => Number(a) - Number(b))];
   }, [tab]);
 
-  const applyFilter = <T extends BaseCard>(items: T[]) =>
-    items.filter((item) => {
-      const classMatch = selectedClass === "All" || item.classes.includes(selectedClass);
-      const levelMatch = selectedLevel === "All" || item.level === Number(selectedLevel);
-      return classMatch && levelMatch;
-    });
+  const filteredSpells = useMemo(
+    () =>
+      SPELLS.filter((item) => {
+        const classMatch = selectedClass === "All" || item.classes.includes(selectedClass);
+        const levelMatch = selectedLevel === "All" || item.level === Number(selectedLevel);
+        return classMatch && levelMatch;
+      }),
+    [selectedClass, selectedLevel],
+  );
 
-  const filteredSpells = useMemo(() => applyFilter(SPELLS), [selectedClass, selectedLevel]);
-  const filteredFeats = useMemo(() => applyFilter(FEATS), [selectedClass, selectedLevel]);
+  const filteredFeats = useMemo(
+    () =>
+      FEATS.filter((item) => {
+        const classMatch = selectedClass === "All" || item.classes.includes(selectedClass);
+        const levelMatch = selectedLevel === "All" || item.level === Number(selectedLevel);
+        return classMatch && levelMatch;
+      }),
+    [selectedClass, selectedLevel],
+  );
 
   const selectedCards = useMemo(() => {
     const spells = SPELLS.filter((spell) => selectedSpells.has(spell.id));
