@@ -254,7 +254,7 @@ function buildPrintHtml(cards: Card[]) {
       }
     </style>
   </head>
-  <body>
+  <body onload="window.print()">
     <main class="grid">${cardHtml}</main>
   </body>
 </html>`;
@@ -337,17 +337,15 @@ export default function Home() {
       return;
     }
 
-    const popup = window.open("", "_blank", "noopener,noreferrer,width=1000,height=700");
+    const blob = new Blob([buildPrintHtml(selectedCards)], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
+    const popup = window.open(url, "_blank", "noopener,noreferrer,width=1000,height=700");
     if (!popup) {
       window.alert("Please allow popups to print cards.");
+      URL.revokeObjectURL(url);
       return;
     }
-
-    popup.document.open();
-    popup.document.write(buildPrintHtml(selectedCards));
-    popup.document.close();
-    popup.focus();
-    window.setTimeout(() => popup.print(), 250);
+    window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
   };
 
   const visibleItems = tab === "spells" ? filteredSpells : filteredFeats;
