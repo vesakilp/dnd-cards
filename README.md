@@ -23,3 +23,16 @@ npm run dev
 npm run lint
 npm run build
 ```
+
+## Vercel Deploy
+
+This repository includes a GitHub Actions workflow at `.github/workflows/vercel-deploy.yml`.
+
+- Pull requests to `main` create a **preview deploy**
+- Pushes to `main` create a **production deploy**
+
+Set these repository secrets before running the workflow:
+
+- `VERCEL_TOKEN`
+- `VERCEL_ORG_ID`
+- `VERCEL_PROJECT_ID`
