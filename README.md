@@ -36,3 +36,11 @@ Set these repository secrets before running the workflow:
 - `VERCEL_TOKEN`
 - `VERCEL_ORG_ID`
 - `VERCEL_PROJECT_ID`
+
+Recommended setup flow:
+
+1. Create a Vercel token from account settings and store it as `VERCEL_TOKEN`.
+2. Get the exact team/user org ID and project ID from Vercel and store them as `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID`.
+3. Ensure the token has access to the same org/project IDs configured above.
+4. Run the **Vercel Deploy** workflow with `workflow_dispatch` to verify both preview/production deploy paths.
+5. If deploy still fails, re-check that `VERCEL_ORG_ID` and `VERCEL_PROJECT_ID` match the linked Vercel project exactly.
