@@ -11,8 +11,8 @@ export default async function PrintPage({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { ids } = await searchParams;
-  const idList = typeof ids === "string" ? ids.split(",").filter(Boolean) : [];
+  const { ids = "" } = await searchParams;
+  const idList = typeof ids === "string" ? ids.split(",").filter(Boolean).map(decodeURIComponent) : [];
 
   const cards: Card[] = [
     ...SPELLS.filter((c) => idList.includes(c.id)),
@@ -55,7 +55,7 @@ export default async function PrintPage({
                 <p className={styles.extra}>{extra}</p>
                 <ul>
                   {card.details.map((line, i) => (
-                    <li key={i}>{line}</li>
+                    <li key={`${card.id}-${i}`}>{line}</li>
                   ))}
                 </ul>
               </article>

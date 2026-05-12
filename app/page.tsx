@@ -83,7 +83,7 @@ export default function Home() {
     if (selectedCards.length === 0) {
       return;
     }
-    const ids = selectedCards.map((c) => c.id).join(",");
+    const ids = selectedCards.map((c) => encodeURIComponent(c.id)).join(",");
     router.push(`/print?ids=${ids}`);
   };
 
